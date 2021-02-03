@@ -1,0 +1,29 @@
+server:
+  port: 8000
+
+eureka:
+  client:
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka
+  instance:
+    instance-id: feign-order80
+
+spring:
+  application:
+    name: cloud-consumer-feign-order
+
+#logging.level.com.zsh.springcloud.service.PaymentFeignService: DEBUG
+
+logging:
+  level:
+    com.zsh.springcloud.service.PaymentFeignService: DEBUG
+
+feign:
+  client:
+    config:
+      default:
+        ConnectTimeout: 5000
+        ReadTimeOut: 5000
+
+

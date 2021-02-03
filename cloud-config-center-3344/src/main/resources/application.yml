@@ -1,0 +1,21 @@
+server:
+  port: 3344
+
+spring:
+  application:
+    name: cloud-config-center3344
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/OneRepublic0224/springcloud-config.git
+          #搜索目录,和uri一级
+          search-paths:
+            - springcloud-config
+      #分支名称,和server一级
+      label: main
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:7001/eureka

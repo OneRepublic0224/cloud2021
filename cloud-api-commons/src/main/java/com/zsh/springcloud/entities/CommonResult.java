@@ -1,0 +1,24 @@
+package com.zsh.springcloud.entities;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+/**
+ * @Author zhangsihang
+ * @Time 2020/10/29 13:38
+ */
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class CommonResult<T> {
+
+    private Integer code;
+    private String message;
+    private T data;
+
+    public CommonResult(Integer code, String message){
+        this(code, message, null);
+    }
+}

@@ -1,0 +1,20 @@
+#1024以下的端口没有root权限不让用,比如80
+server:
+  port: 8000
+
+spring:
+  application:
+#    设置微服务在eureka上的application名称
+    name: cloud-consumer-order
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://eureka7002.com:7002/eureka,http://eureka7001.com:7001/eureka
+  instance:
+#    修改微服务在eureka上的status名称(不含主机名称)
+    instance-id: order80
+#    显示ip
+    prefer-ip-address: true

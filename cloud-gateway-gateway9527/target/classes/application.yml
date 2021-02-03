@@ -1,0 +1,64 @@
+server:
+  port: 9527
+
+                                            #curl 相当于发了一个get请求
+spring:                                     #spring.cloud.gateway.routes
+  application:
+    name: cloud-gateway                     #在application中本服务的名字
+  cloud:
+    gateway:
+      routes:
+        - id: payment_route1                #路由id,没固定规则,但要求唯一
+#          uri: http://localhost:8001        #现在是localhost:9527,但是作用和localhost:8001一样
+          uri: lb://cloud-provider-payment  #lb表示启动微服务cloud-provider-payment的负载均衡功能
+          predicates:                       #原来的访问地址是http://localhost:8001/payment/get/1,现在的访问地址是http://localhost:9527/payment/get/1
+            - Path=/payment/get/**          #Path表示请求路径
+#            - After=2021-01-05T17:04:43.282+08:00[Asia/Shanghai]   #After表示在某时间之后的请求才有效
+#            - Cookie=goat,LeBronJames       #逗号前后分别是name和regexp  --cookie "goat=LeBronJames"
+#            - Header=request,\d+            #逗号前后分别是name和regexp,\d+表示正整数  -H "request:111"
+#            - Host=www.**.com               #只有一个参数 -H "Host:www.baidu.com"
+#            - Method=GET,POST               #方法类型,可以是多个
+#            - Query=username, \d+           #逗号前后分别是name和regexp ?username=24
+
+        - id: payment_route2
+          uri: http://localhost:8001
+          predicates:
+            - Path=/payment/discovery       #get后面的通配符是因为需要传数据,而/payment/discovery不需要传数据
+
+        - id: payment_route3
+          uri: https://www.baidu.com        #原来是www.baidu.com,现在是localhost:9527
+          predicates:
+            - Path=/more                    #localhost:9527/more相当于www.baidu.com/more
+
+        - id: payment_route4
+          uri: http://news.baidu.com/
+          predicates:
+            - Path=/guonei
+
+        - id: payment_route5
+          uri: https://www.qq.com/        #如果只输入localhost:9527,会转发到最后一个uri地址(www.qq.com)
+          predicates:
+            - Path=/                      #不知道为啥无法复制,在复制的基础上改不行
+
+
+      discovery:
+        locator:
+          enabled: true                   #开启从注册中心动态创建路由的功能,利用微服务名称进行路由
+
+#        - id: payment_route4
+#            uri: http://news.baidu.com
+#            predicates:
+#              - Path=/guonei
+
+#         http://www.baidu.com
+
+eureka:
+  client:
+    register-with-eureka: true               #是否注册到eureka上
+    fetch-registry: true                     #是否从eureka获取注册信息,默认true
+    service-url:                             #eureka服务器地址
+      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka
+  instance:
+    hostname: cloud-gateway-service          #点击status中微服务时,网页左下角显示的 应用实例主机名
+    prefer-ip-address: false                 #true优先显示ip
+    ip-address: 111.111.111.111              #配置应用实例ip

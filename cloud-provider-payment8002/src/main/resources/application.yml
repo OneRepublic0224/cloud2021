@@ -1,0 +1,31 @@
+#1.设置端口号
+#2.为此module命名
+#3.设置数据源
+#4.设置eureka.client
+
+server:
+  port: 8002
+
+spring:
+  application:
+    name: cloud-provider-payment
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/test2020?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: zhang6314097
+
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.zsh.springcloud.entities
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    #    eureka7001地址
+    service-url:
+      defaultZone: http://eureka7002.com:7002/eureka,http://localhost:7001/eureka
+#      defaultZone: http://localhost:7001/eureka,http://eureka7002.com:7002/eureka

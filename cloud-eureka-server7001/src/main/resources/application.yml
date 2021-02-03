@@ -1,0 +1,23 @@
+server:
+  port: 7001
+
+eureka:
+  instance:
+    hostname: eureka7001.com
+
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+#      不知道这么defaultZone到底是干啥的,向这个地址?
+#      忘记写7002端口号了,结果一个微服务无法同时出现在两个eureka上
+      defaultZone: http://eureka7002.com:7002/eureka
+  server:
+#    关闭自我保护机制
+#    enable-self-preservation: false
+#    2000ms内微服务没有向eureka发送请求,删除相应微服务
+#    eviction-interval-timer-in-ms: 2000
+
+
+
+
