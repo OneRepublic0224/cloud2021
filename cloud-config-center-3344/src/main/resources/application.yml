@@ -8,8 +8,9 @@ spring:
     config:
       server:
         git:
+          #github仓库地址
           uri: https://github.com/OneRepublic0224/springcloud-config.git
-          #搜索目录,和uri一级,应该就是cloud2021
+          #搜索目录,和uri一级,应该就是 仓库名称
           search-paths:
             - springcloud-config
       #分支名称,和server一级

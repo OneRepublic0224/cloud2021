@@ -1,0 +1,26 @@
+server:
+  port: 3355
+
+spring:
+  application:
+    name: cloud-config-client3355
+  cloud:
+    config:
+      label: main  #分支名称
+      name: config   #XXX-XX.yml   这里就是XXX
+      profile: test   #这里就是XX
+      uri: http://localhost:3344   #server配置中心地址,
+                                   #和上面综合起来就是http://localhost:3344/master/config-dev.yml
+
+eureka:
+  client:
+    service-url:
+     defaultZone: http://localhost:7001/eureka
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
